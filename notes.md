@@ -20,5 +20,11 @@ For this kind of erros we can use **Madge** which is a tool that can help us to 
 npx madge dist/main.js --circular # this will show us the circular dependencies
 npx madge dist/main.js --image graph.png # this will generate an image with the dependencies
 ```
+## Explicit vs Implicit Dependencies
 
+### Implicit Dependencies
+We refer to it as implicit dependencies because the framework is in charge of reading the constructors metadata and the retrival of the Provider class reference itself. So we don't have to do anything else.
+
+### Explicit Dependencies
+We refer to it as explicit dependencies because we have to explicitly tell NestJS what we want to inject. We do this by using the @Inject() decorator.
 

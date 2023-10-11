@@ -1,16 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
 
-import { Coffee } from './entities/coffee.entity';
-
-import { COFFEES_DATA_SOURCE } from './coffees.module';
+import { COFFEES_DATA_SOURCE, CoffeesDataSource } from './coffees.datasource';
 
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
-
-// OR alternatively "export type CoffeesDataSource = Coffee[];"
-export interface CoffeesDataSource {
-  [index: number]: Coffee;
-}
 
 @Injectable()
 export class CoffeesService {
