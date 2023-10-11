@@ -28,3 +28,14 @@ We refer to it as implicit dependencies because the framework is in charge of re
 ### Explicit Dependencies
 We refer to it as explicit dependencies because we have to explicitly tell NestJS what we want to inject. We do this by using the @Inject() decorator.
 
+## Lazy-loading Modules 
+By default, modules are eagerly loaded, which means that as soon as the application starts, all the modules are loaded. Wheter or not they are immediately needed.
+
+While this is fine for most applications, it can be a problem for applications or workers running in a serverless environment, where having little to no startup latency or cold start is crucial.
+
+Lazy loading can help decrease bootstrap time by loading only the modules required by specific serverless function invocation.
+
+### Lazy-loading use cases
+Most commonlly, you will see lazy loaded modules in situations where your worker, cron job, lamda, serverless function or webhooks must trigger different services or different logic based on any given input arguments.
+
+On the other hand, if you have a monolithic application, you may not need to lazy load your modules, where the startup time is rather irrelevant.
