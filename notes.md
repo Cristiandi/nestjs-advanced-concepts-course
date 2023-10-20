@@ -39,3 +39,6 @@ Lazy loading can help decrease bootstrap time by loading only the modules requir
 Most commonlly, you will see lazy loaded modules in situations where your worker, cron job, lamda, serverless function or webhooks must trigger different services or different logic based on any given input arguments.
 
 On the other hand, if you have a monolithic application, you may not need to lazy load your modules, where the startup time is rather irrelevant.
+
+## Accessing IoC container 
+Oftentimes when building integration and generic libraries, we requiere access to the applications inversion of control or IOC container in order to introspect all the registred providers and controllers.
