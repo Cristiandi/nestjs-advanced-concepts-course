@@ -42,3 +42,11 @@ On the other hand, if you have a monolithic application, you may not need to laz
 
 ## Accessing IoC container 
 Oftentimes when building integration and generic libraries, we requiere access to the applications inversion of control or IOC container in order to introspect all the registred providers and controllers.
+
+## Worker Threads in Action
+Worker threads help us offload CPU intensive tasks, away from the event loop so that they can be executed parallelly in a non-blocking manner. Although they do not help us much with I/O intensive work. Since the Node.js built-in asynchronous I/O operations are much more efficient themselves.
+
+### Isolated V8 environment
+Each worker thread has its own isolated V8 environment, context, event loop, event queue, etc. However, they can share memory by transferring arraybuffers instances or sharing shared arraybuffer instances with one another. Also, a worker and parent can communicate with each other through a messaging channel.
+
+*** Note that in Node.js it's important to differentiate between CPU intensive, long running, event loop blocking and I/O operations, such as HTTP requests and querying a database, etc. ***
