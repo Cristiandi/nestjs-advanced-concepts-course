@@ -50,3 +50,8 @@ Worker threads help us offload CPU intensive tasks, away from the event loop so 
 Each worker thread has its own isolated V8 environment, context, event loop, event queue, etc. However, they can share memory by transferring arraybuffers instances or sharing shared arraybuffer instances with one another. Also, a worker and parent can communicate with each other through a messaging channel.
 
 *** Note that in Node.js it's important to differentiate between CPU intensive, long running, event loop blocking and I/O operations, such as HTTP requests and querying a database, etc. ***
+
+## Implementing the Circuit Breaker pattern
+In today's world, it's common for applications to make remote calls to services running in different processes or even different machines. In a distributed environment calls to remote resources and services can fail due a variety of reasons, such as network issues, timeouts, etc.
+What could make matter wrorse is if you have many callers to a unresponsive supplier, it's possible your system run out of critical resources, leading to a cascading failure, accross multiple systems, also known as a snowball effect.
+The circuit breaker pattern can prevent an application from repeatedly trying to execute an operation that's likely to fail.
