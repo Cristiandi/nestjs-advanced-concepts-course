@@ -55,3 +55,20 @@ Each worker thread has its own isolated V8 environment, context, event loop, eve
 In today's world, it's common for applications to make remote calls to services running in different processes or even different machines. In a distributed environment calls to remote resources and services can fail due a variety of reasons, such as network issues, timeouts, etc.
 What could make matter wrorse is if you have many callers to a unresponsive supplier, it's possible your system run out of critical resources, leading to a cascading failure, accross multiple systems, also known as a snowball effect.
 The circuit breaker pattern can prevent an application from repeatedly trying to execute an operation that's likely to fail.
+
+## Building Configurable Modules 
+Manually creating highly configurable, dynamic modules that expose async methods (be it registerAsync, forRootAsync) is quite complicated, especially for newcomers! You may have seen methods like these when working with official Nest packages such as "@nestjs/typeorm", "@nestjs/graphql", et cetera). In these packages you have certainly done things like TypeOrmModule.forRoot (or forRootAsync) when working with them.
+
+If you have ever tried to create your own DynamicModule that accomplishes similar things, you may have realized it's not very straightforward and involves quite a bit of boilerplate! This is why Nest exposes a somewhat new class called the ConfigurableModuleBuilder. Which helps us facilitate and simplify this entire process, and lets us construct a module "blueprint" - all in just a few lines of code. While creating basic configurable modules is a pretty straightforward process, leveraging all the built-in features of the ConfigurableModuleBuilder might not be that obvious!
+
+### register
+When creating a module with register, we are expecting the module to be able to configure a Dynamic Module with a specific configuration or use only by the calling module. You can do this for as many modules as you want.
+
+### forRoot
+With forRoot, we are expecting to be able to configure a Dynamic Module once and reuse once and reuse that configuration in multiple places, though possibly unknowingly as it's abstracted away.
+
+### forFeature
+With forFeature, we are expecting to use the the configuration of a dynamic modules forRoot, but need to modify some configuration speficic to the calling module needs. Let's say for example, which repository this module should have access to or the context that a logger should use.
+
+### async counterparts
+All of these methods usually have an async counterpart as well. They typically achieve the same thing as their counterpart, but they use Nest dependency injection for the configuration in order to handle things asynchronously.
