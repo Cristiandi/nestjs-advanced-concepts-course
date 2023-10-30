@@ -75,3 +75,8 @@ All of these methods usually have an async counterpart as well. They typically a
 
 ## Composition with Mixins
 Along with traditional Object-oriented hierarchies, another popular way of building up classes from reusable components is to build them by combining simpler partial classes. This is known as the mixin pattern.
+
+## What are Schematics?
+A schematic is a template-based code generator that is a set of instructions for transforming a software project by generating or modifying code.
+We can utilize these schematics to enforce architectural rules and conventions, making our projects consistent and inter-operative. Or we could create schematics to help us generate commonly-used code - shared services, modules, interfaces, health checks, docker files etc. 
+For a more real-world example, with the help of schematics, we could reduce the amount of time we might need to setup all the boilerplate for creating a new microservice within our organization by creating a microservice schematic that generates all of the common code / loggers / tools / etc that we might commonly use in our organizations microservices. 
