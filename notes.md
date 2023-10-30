@@ -72,3 +72,6 @@ With forFeature, we are expecting to use the the configuration of a dynamic modu
 
 ### async counterparts
 All of these methods usually have an async counterpart as well. They typically achieve the same thing as their counterpart, but they use Nest dependency injection for the configuration in order to handle things asynchronously.
+
+## Composition with Mixins
+Along with traditional Object-oriented hierarchies, another popular way of building up classes from reusable components is to build them by combining simpler partial classes. This is known as the mixin pattern.

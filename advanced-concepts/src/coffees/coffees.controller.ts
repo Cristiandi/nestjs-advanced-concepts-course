@@ -14,6 +14,9 @@ import {
 import { COFFEES_DATA_SOURCE, CoffeesDataSource } from './coffees.datasource';
 
 import { CircuitBreakerInterceptor } from '../common/interceptors/circuit-breaker.interceptor';
+// import { EntityExistsPipe } from '../common/pipe/entity-exists/entity-exists.pipe';
+
+// import { Coffee } from './entities/coffee.entity';
 
 import { CoffeesService } from './coffees.service';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
@@ -46,7 +49,11 @@ export class CoffeesController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCoffeeDto: UpdateCoffeeDto) {
+  update(
+    // @Param('id', EntityExistsPipe(Coffee)) id: string,
+    @Param('id') id: string,
+    @Body() updateCoffeeDto: UpdateCoffeeDto,
+  ) {
     return this.coffeesService.update(+id, updateCoffeeDto);
   }
 
