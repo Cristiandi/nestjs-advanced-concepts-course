@@ -98,3 +98,9 @@ Request scoped provider get instantiated dynamically upon receiving a signal, in
 You can see that when it comes to how request scoped providers are invoked, it really depends on the context of an individual application. In reaction to that signal, NestJS constructs a so-called dependency injection subtree, that's associated with the given signal. For instanse, for an incoming HTTP request, it instantiates a new controller that declares a specific rule, this instance is created exclusively for that particular request and will be removed when the request processing has completed.
 NestJS associates subtrees with their corresponding ID objects, and if the context ID gets garbage collected, so does the entire subtree. That means the subtrees are ephemeral, meaning that they are remove as their context ID is garbage collected.
 Just keep en mind that if you keep track of the context ID, for example, by storing it in the static array or any other collection,  the subtree associated with that context object will never get removed.
+
+## Understanding Durable Providers 
+Request scope providers can sometimes lead to increased latency. Since we're having al least one request scope provider injected into let's say, a controller instance or deeper injected into on its providers, makes the controller request scoped as well.
+It means it must be recreated or instantiated for each individual request and garbage collected afterwards.
+For instance for 30000 requests in parallel, there will 30000 ephemeral controller instances and its request scope providers. 
+Hacing a common provider that most providers depend on, for example a db connection, autocamically converts all those providers to a request scope. This can pose a challenge in multi-tenant applications.
