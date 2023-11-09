@@ -104,3 +104,17 @@ Request scope providers can sometimes lead to increased latency. Since we're hav
 It means it must be recreated or instantiated for each individual request and garbage collected afterwards.
 For instance for 30000 requests in parallel, there will 30000 ephemeral controller instances and its request scope providers. 
 Hacing a common provider that most providers depend on, for example a db connection, autocamically converts all those providers to a request scope. This can pose a challenge in multi-tenant applications.
+
+## What's Multi-tenancy?
+Multi-tenancy is an architecture in which a single instance of a software application serves multiple tenants or customers. Each tenant has its own set of data, as a major security concern is data particioning across tenants or accounts.
+For example, users from tenant A should not be able to access data tenant B and vice versa. The most common use case for multi-tenant systems are SaaS based applications which use different levels of data isolation depending on the domain of the application.
+
+### SILO
+In the Silo strategy, we have a separate database instance per tenant. This approach provides a strict data separation at the expense of both higher infrastructure cost and a more complicated tenant setup, because you will have to provision and manage a new database instance for each tenant that onboards you SaaS offering.
+The nature of a single tenant silo means you're never sharing resources. But as we mention, of course, this comes with pricing concerns.
+
+### Pool
+In the pool model all tenants share one database instance. In this approach, data for all the customers sits side by side, but each table or view contains a partiotioning key, usually the tenant identifier, aka tenant ID, which we use to filter data by. The pool model uses resources more efficiently, save the most on operational costs and reduces your infrastructure overhead. On the other hand, there's no separation of tenant data and there's a risk that data may leak to other tenants if we forgot to apply the query filter, wheter it's and additional where clause or a local per transaction variable.
+
+### Bridge
+In this approach we share the same database instance, but a different schema for each tenant. Schemas are technically the same for all tenants, same tables and same constraints but they remain isolated from each other. This strategy makes sense if you have a few high-value tenants usuing you business to business SaaS. Otherwise you might be best using the pooling strategy augmented with RLS or row leve security
