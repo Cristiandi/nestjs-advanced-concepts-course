@@ -11,6 +11,13 @@ import { HttpClientModuleModule } from './http-client-module/http-client-module.
 import { RecipesModule } from './recipes/recipes.module';
 import { TagsModule } from './tags/tags.module';
 import { PaymentsModule } from './payments/payments.module';
+import { DataSourceModule } from './data-source/data-source.module';
+import { UsersModule } from './users/users.module';
+import { ContextIdFactory } from '@nestjs/core';
+
+import { AggregateByTenantContextIdStrategy } from './core/aggregate-by-tenant.strategy';
+
+ContextIdFactory.apply(new AggregateByTenantContextIdStrategy());
 
 @Module({
   imports: [
@@ -25,6 +32,8 @@ import { PaymentsModule } from './payments/payments.module';
     RecipesModule,
     TagsModule,
     PaymentsModule,
+    DataSourceModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
