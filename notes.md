@@ -118,3 +118,8 @@ In the pool model all tenants share one database instance. In this approach, dat
 
 ### Bridge
 In this approach we share the same database instance, but a different schema for each tenant. Schemas are technically the same for all tenants, same tables and same constraints but they remain isolated from each other. This strategy makes sense if you have a few high-value tenants usuing you business to business SaaS. Otherwise you might be best using the pooling strategy augmented with RLS or row leve security
+
+## Durable Providers 2: i18n
+Internationalization (typically abbreviated as i18n) is the process of designing an application so that it can be adapted to various languages and regions. Adding support for more languages, currencies, etc. shouldn't require project implementation tweaks - and - depending on the implementation (whether we load translations statically or dynamically) we should be able to modify translations on the fly.
+
+What that means is textual elements, such as status messages, error messages, etc. should not be hardcoded - but instead, pulled from a specific translation file/source relevant to a user's region.  This allows for an incredibly flexible system where a user can ask for something in a certain language/currency/etc, and get it returned back to them in that format.
